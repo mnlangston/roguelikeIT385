@@ -24,6 +24,7 @@ Maze::Maze(int x,int y) {
 	mazW = x;
 	mazH = y;
 	passed = 0;
+	int test = 5; //adding to see if I can figure out git
 }
 
 void Maze::printMaze(){
