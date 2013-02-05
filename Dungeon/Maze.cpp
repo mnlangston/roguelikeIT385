@@ -11,6 +11,7 @@
 #include <stdlib.h>
 
 //fill up a new maze with solid rock
+//TODO: maybe reorganize so we can reference as [x][y], laziness and stupidity caused this
 Maze::Maze(int x,int y) {
 	map = new int*[y];
 	for(int i = 0; i < y; i++){
@@ -129,6 +130,7 @@ bool Maze::makeRegularHallway(std::pair<int,int> p){
 			x--; break;
 		}
 		//check that we're still within the bounds of the dungeon
+		//TODO: replace with that function I wrote lol
 		if(x < 0 || x > mazW || y < 0 || y > mazH){
 			boundsViolated = true;
 		}
@@ -162,15 +164,17 @@ bool Maze::boundsCheck(int x,int y){
 }
 
 //dig a regular room in the dungeon, the 4 parameters specify
-// top (x,y) and bottom (x,y)
+// the (x.y) of one corner of a rectangle and the (x,y) of another corner
+// t means "top" and b "bottom" but there's no guranantee that that is the case
 // returns true if it was able to do it, false otherwise
 bool Maze::makeRegularRoom(int tx,int ty,int bx,int by){
 	//do bounds checking
+	//TODO: replace parts with that function I wrote 
 	if( (abs(tx-bx) < 2) || (abs(ty-by) < 2) || (tx <= 0 || ty <= 0 || bx <= 0 || by <= 0)
 			|| (tx >= mazW-1 || bx >= mazW-1)
 			|| (ty >= mazH-1 || by >= mazH-1)
 			|| (tx == bx) || (ty == by)
-			//in addition to these normal bounds checks, since these are "regular"
+			//in addition to these normal bounds checks, since these are "regular" rooms
 			//	we don't want any rooms greater than 1/4th the size of the map
 			|| (abs(tx-bx) > (mazW/4)) || (abs(ty-by) > (mazW/4))
 		)
@@ -178,11 +182,10 @@ bool Maze::makeRegularRoom(int tx,int ty,int bx,int by){
 		return false;
 	}
 	//find leftmost,rightmost,topmost,bottommost, work with that from now on
-	int lm,rm,tm,bm;
-	lm = (tx < bx) ? tx : bx;
-	rm = (lm == tx) ? bx : tx;
-	tm = (ty < by) ? ty : by;
-	bm = (tm == ty) ? by : ty;
+	int lm = (tx < bx) ? tx : bx;
+	int rm = (lm == tx) ? bx : tx;
+	int tm = (ty < by) ? ty : by;
+	int bm = (tm == ty) ? by : ty;
 	//check if perimeter (wall) and room space is not already occupied
 	for(int i = lm-1; i <= rm+1; i++){
 		for(int j = tm-1; j <= bm+1; j++){
@@ -271,7 +274,7 @@ void Maze::generateBoringDungeon(){
 	//how big should it be? For now lets say a boring dungeon is 100x40 but this could (should) be
 	// a randomly generated value in a range of acceptable x and y
 	Maze m(100,40);
-	//TODO: Finish when intermediate steps are completed, final goal of class
+	//TODO: Finish when intermediate steps are completed, final goal of Dungeon class
 }
 
 Maze::~Maze() {
