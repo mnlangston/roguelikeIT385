@@ -271,6 +271,7 @@ void Maze::generateBoringDungeon(){
 	//how big should it be? For now lets say a boring dungeon is 100x40 but this could (should) be
 	// a randomly generated value in a range of acceptable x and y
 	Maze m(100,40);
+	//TODO: Finish when intermediate steps are completed, final goal of class
 }
 
 Maze::~Maze() {
@@ -280,7 +281,7 @@ Maze::~Maze() {
 }
 
 int main(int argc,char** argv){
-	int n = 1000; //how many times are we going to try to generate a room?
+	int n = 1000;
 	Maze m(40,25);
 	m.generateRoomTest(n);
 	m.makeRegularHallway(m.getRandomWall());
